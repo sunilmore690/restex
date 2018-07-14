@@ -195,3 +195,14 @@ by default CRUD api will be created for all models
  POST     /users
 
 ```
+
+#### examples
+
+
+```
+$ git clone https://github.com/sunilmore690/restex-mongo-demo
+$ cd restex-mongo-demo
+$ npm install
+$ npm start
+```
+
