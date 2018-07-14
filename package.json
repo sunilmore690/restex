@@ -5,6 +5,10 @@
   "main": "./lib/restex",
   "scripts": {
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sunilmore690/restex.git"
+  },
   "keywords": [
     "nodejs",
     "api",
