@@ -9,7 +9,9 @@ Simple and minimalist API framework based on top of Expressjs with support mongo
 .
   ```
 const express = require("express"),
-    RestEx = require("restex"),
+    RestEx = require("restex");
+
+let app = express()
     
 
 //Restex connecting to mongodb using mongodb url
