@@ -1,7 +1,7 @@
 # restex
 
 
-Note: For now I support only mongoose, very soon I come with sequelizejs.
+**Note**: For now I support only mongoose, very soon I come with sequelizejs.
 
 Simple and minimalist API framework based on top of Expressjs with support mongoose & sequelizejs
 
