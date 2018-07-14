@@ -4,7 +4,7 @@
 Simple and minimalist API framework based on top of Expressjs with support mongoose & sequelizejs
 
 ##### Initialize restex using mongoose URL
-
+.
   ```
 const express = require("express"),
     RestEx = require("restex"),
@@ -25,7 +25,7 @@ let restex = new RestEx(app, {
   ```
   
  ##### Initialize restex using existing mongoose connection instance 
- 
+ .
   ```
 const express = require('express'),
       mongoose = require('mongoose'),
@@ -77,61 +77,106 @@ default : routes
 
 ### Fixed File structure 
 
+##### models
+//user.js
+```
+module.exports = function(mongoose) {
+  const Schema = mongoose.Schema;
+  var userSchema = new Schema({
+    name: String,
+    email: { type: String, required: true, unique: true },
+    password: { type: String, required: true },
+    createdAt: { type: Date },
+    updatedAt: Date
+  });
+
+  userSchema.pre("save", function() {
+    if (this.isNew) {
+      this.createdAt = new Date();
+    } else {
+      this.updatedAt = new DataCue();
+    }
+  });
+  return userSchema
+};
+```
+
+##### routes
+//user.js
+
+```
+module.exports = function(router) {
+  router.post("/authenticate", "user#authenticate");
+};
+```
+###### Note: user#authenticate 
+user >> controller 
+authenticate >> handler defined in controller
+
+If you need to add **middleware** to route
+```
+let middeware1 = function(req,res,next){
+  next()
+}
+let middeware2 = function(req,res,next){
+  next()
+}
+module.exports = function(router) {
+  router.post("/authenticate", "user#authenticate",{middlware:[middeware1,middeware2]);
+};
+
+```
 ##### controllers 
 //user.js
 ```
 let model_name = 'user'// make sure user schema exist in models dir
 module.exports = function(restex){
-  let UserDao = restex.model(model_name)
+  let Dao = restex.model(model_name)
   let authenticate = function(req,res,next){
    //Using Promise then & catch
-    UserDao.get({email: req.body.email,password: req.body.password}).then(user=>{
+    Dao.get({email: req.body.email,password: req.body.password}).then(user=>{
         res.json(user)
     }).catch(err=>{
       return next(err)
     })
-    //Using async/await
+    
+    // Using async/await
     try{
-        let user = UserDao.get({email: req.body.email,password: req.body.password})
+        let user = Dao.get({email: req.body.email,password: req.body.password})
     }catch(e){
       return next(e)
    }
-    
   }
-  
   return {
-   model_name,
    authenticate
   }
-
 }
-
-
 ```
 
-Existing Methods of Dao
+#### Dao object consist of following predefined CURD methos
+   1. ```Dao.get({email:email})).then(=>{}).catch(=>{})```
+   2. ``` Dao.getAll({company:<company>},{page:1,limit:10}) ```
+    3. ```Dao.destroy({email:email}).then(=>{}).catch(=>{})```
+    4. ```Dao.update({email:email},{name:'Scott  Tiger'}).then(=>{}).catch(=>{})```
+    5. ``` Dao.add({email:'scott@tiger.com',name:'Scott Tiger'}```
+  
+In some case if you need access mongoose Model directly.
 
-// all crud api exist in UserDao
-  /*
-   1. UserDao.get({email:email})).then(=>{}).catch(=>{})
-   2. UserDao.getAll({company:<company>},{page:1,limit:10}).then(result=>{
-        
-        result >> {
-            "docs": [
-             ],
-            "total": 1,
-            "limit": 10,
-            "offset": 0,
-            "page": 1,
-            "pages": 1
-        }
-        
-      }).catch(=>{
-      
+```
+const model_name = 'user'
+module.exports = function(restex){
+   let UserModel = restex.models[model_name]
+   let authenticate = function(req , res,next){
+      UserModel.findOne({email:req.body.email,password:req.body.password}).lean().then(user=>{
+        res.json(user)
+      }).catch(err=>{
+        return next(err)
       })
-    3. UserDao.destroy({email:email}).then(=>{}).catch(=>{})
-    4. UserDao.update({email:email},{name:'Scott Tiger'}).then(=>{}).catch(=>{})
-    5. UserDao.add({email:'scott@tiger.com',name:'Scott Tiger'}
-  
-  
-  */
+   
+   }
+   return {
+    authenticate
+   }
+}
+  npm run build:admin
+```
