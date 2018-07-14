@@ -4,7 +4,6 @@
 Simple and minimalist API framework based on top of Expressjs with support mongoose & sequelizejs
 
 ##### Initialize restex using mongoose URL
-.
   ```
 const express = require("express"),
     RestEx = require("restex"),
@@ -25,7 +24,6 @@ let restex = new RestEx(app, {
   ```
   
  ##### Initialize restex using existing mongoose connection instance 
- .
   ```
 const express = require('express'),
       mongoose = require('mongoose'),
