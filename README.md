@@ -80,9 +80,10 @@ default : routes
 ### Fixed File structure 
 
 ##### models
-//users.js
+//user.js
 ```
 module.exports = function(mongoose) {
+  let modelName = 'users';
   const Schema = mongoose.Schema;
   var userSchema = new Schema({
     name: String,
@@ -99,10 +100,12 @@ module.exports = function(mongoose) {
       this.updatedAt = new DataCue();
     }
   });
+  userSchema.statics = {
+    collectionName:modelName // default file name >>user
+  }
   return userSchema
 };
 ```
-
 ##### routes
 //user.js
 
@@ -185,7 +188,11 @@ module.exports = function(restex){
 
 #### Automatic CRUD API creation
 
-by default CRUD api will be created for all models 
+by default CRUD api will be created according to collectionName provided in mongoose Schema
+
+ userSchema.statics = {
+    collectionName:'users' 
+ }
 
 ```
  GET      /users
