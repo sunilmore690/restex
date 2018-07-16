@@ -202,9 +202,15 @@ by default CRUD api will be created according to collectionName provided in mong
  POST     /users
 
 ```
-To add middlware for CRUD api
+To add middlware option for CRUD api ,add routeOption while defining mongoose model
 
 ```
+let middleware1 = function(){
+  //middleware1
+}
+let middleware2 = function(){
+  //middleware1
+}
  userSchema.statics = {
     collectionName:'users',
     routeOption:{
