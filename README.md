@@ -1,7 +1,7 @@
 # restex
 
 
-**Note**: For now I support only mongoose, very soon I'll come with sequelizejs
+**Note To**: For now I support only mongoose, very soon I'll come with sequelizejs
 
 Simple and minimalist API framework based on top of Expressjs with support mongoose & sequelizejs
 
@@ -29,6 +29,7 @@ let restex = new RestEx(app, {
   ```
   
  ##### Initialize restex using existing mongoose connection instance 
+ 
   ```
 const express = require('express'),
       mongoose = require('mongoose'),
