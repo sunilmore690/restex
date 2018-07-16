@@ -6,8 +6,8 @@
 Simple and minimalist API framework based on top of Expressjs with support mongoose & sequelizejs
 
 ##### Initialize restex using mongoose URL
-.
-  ```
+
+```
 const express = require("express"),
     RestEx = require("restex");
 
@@ -29,7 +29,6 @@ let restex = new RestEx(app, {
   ```
   
  ##### Initialize restex using existing mongoose connection instance 
- .
   ```
 const express = require('express'),
       mongoose = require('mongoose'),
@@ -79,7 +78,7 @@ default : routes
 @type {string}
 ```
 
-### Fixed File structure 
+### Follow the following file structurre for models,routes & controllers
 
 ##### models
 //user.js
@@ -185,7 +184,6 @@ module.exports = function(restex){
     authenticate
    }
 }
-  npm run build:admin
 ```
 
 #### Automatic CRUD API creation
@@ -202,6 +200,17 @@ by default CRUD api will be created according to collectionName provided in mong
  PUT      /users/:id
  GET      /users/:id
  POST     /users
+
+```
+To add middlware for CRUD api
+
+```
+ userSchema.statics = {
+    collectionName:'users',
+    routeOption:{
+        middleware:[middleware1,middleware2]
+    } 
+ }
 
 ```
 
