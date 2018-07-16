@@ -1,6 +1,6 @@
 {
   "name": "restex",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Nodejs framework built on top of expressjs,mongoose,sequelizejs",
   "main": "./lib/restex",
   "scripts": {
