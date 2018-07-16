@@ -133,7 +133,7 @@ let middeware2 = function(req,res,next){
   next()
 }
 module.exports = function(router) {
-  router.post("/authenticate", "user#authenticate",{middlware:[middeware1,middeware2]);
+  router.post("/authenticate", "user#authenticate",{middleware:[middeware1,middeware2]);
 };
 
 ```
@@ -210,11 +210,12 @@ by default CRUD api will be created according to collectionName provided in mong
 To add middlware option for CRUD api ,add routeOption while defining mongoose model
 
 ```
-let middleware1 = function(){
+let middleware1 = function(req,res,next){
   //middleware1
 }
-let middleware2 = function(){
+let middleware2 = function(req,res,next){
   //middleware1
+
 }
  userSchema.statics = {
     collectionName:'users',
