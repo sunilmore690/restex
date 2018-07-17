@@ -1,13 +1,12 @@
 # restex
 
+Simple and minimalist API framework based on top of Expressjs with support mongoose & sequelizejs
 
 **Note To**: For now I support only mongoose, very soon I'll come with sequelizejs
 
 Requirements
-You need Node.js ^7.10.1 installed and you'll need MongoDB installed and running.
+You need **Node.js ^7.10.1** installed and you'll need MongoDB installed and running.
 
-
-Simple and minimalist API framework based on top of Expressjs with support mongoose & sequelizejs
 
 ##### Initialize restex using mongoose URL
 
