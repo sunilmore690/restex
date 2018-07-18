@@ -1,4 +1,4 @@
-<img src='https://raw.githubusercontent.com/sunilmore690/restex/master/restex_logo.png' style="width: 100%; max-width: 400px;max-height:200px" alt='Restex Logo'>
+<img src='https://raw.githubusercontent.com/sunilmore690/restex/master/restex_logo.png' style="max-height:200px" alt='Restex Logo'>
 
 # restex
 
