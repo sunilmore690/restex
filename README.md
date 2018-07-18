@@ -1,4 +1,5 @@
-<img src='https://raw.githubusercontent.com/sunilmore690/restex/master/restex_logo.png' style="width: 100%; max-width: 400px;" alt='Restex Logo'>
+<img src='https://raw.githubusercontent.com/sunilmore690/restex/master/restex_logo.png' style="width: 100%; max-width: 400px;max-height:200px" alt='Restex Logo'>
+
 # restex
 
 Simple and minimalist API framework based on top of Expressjs with support mongoose & sequelizejs
