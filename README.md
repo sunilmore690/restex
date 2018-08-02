@@ -143,7 +143,7 @@ module.exports = function(router) {
 ```
 let model_name = 'users'// make sure user schema exist in models dir
 module.exports = function(restex){
-  let Dao = restex.model(model_name)
+  let Dao = restex.dao(model_name)
   let authenticate = function(req,res,next){
    //Using Promise then & catch
     Dao.get({email: req.body.email,password: req.body.password}).then(user=>{
@@ -177,7 +177,7 @@ In some case if you need access mongoose Model directly.
 ```
 const model_name = 'users'
 module.exports = function(restex){
-   let UserModel = restex.models[model_name]
+   let UserModel = restex.model(model_name)
    let authenticate = function(req , res,next){
       UserModel.findOne({email:req.body.email,password:req.body.password}).lean().then(user=>{
         res.json(user)
