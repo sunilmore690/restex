@@ -62,6 +62,7 @@ let restex = new RestEx(app, {
     controllersPath: path.resolve(__dirname + "/controllers"),
     modelsPath: path.resolve(__dirname + "/models"),
     routesPath: path.resolve(__dirname + "/routes")
+    middlewaresPath: path.resolve(__dirname + "/middlewares")
 });
   ```
 
@@ -81,6 +82,12 @@ default : models
 path to routes directory where you define routes for app
 ```
 default : routes
+@type {string}
+```
+##### middlewaresPath 
+path to routes directory where you define routes for app
+```
+default : middlewares
 @type {string}
 ```
 
@@ -108,7 +115,10 @@ module.exports = function(mongoose) {
     }
   });
   userSchema.statics = {
-    collectionName:modelName // default file name >>user
+    collectionName:modelName // default file name >>user,
+    routeOption:{
+      middleware:['auth']//where auth is middleware file exist in middlewares Path dir
+    }
   }
   return userSchema
 };
@@ -134,7 +144,7 @@ let middeware2 = function(req,res,next){
   next()
 }
 module.exports = function(router) {
-  router.post("/authenticate", "user#authenticate",{middleware:[middeware1,middeware2]);
+  router.post("/authenticate", "user#authenticate",{middleware:[middeware1,middeware2,'auth']);
 };
 
 ```
@@ -162,6 +172,19 @@ module.exports = function(restex){
   return {
    authenticate
   }
+}
+```
+
+
+##### middlewares 
+//auth.js
+```
+module.exports = function(req,res,next){
+   const isAuthenticated = true;
+   if(isAuthenticated){
+     return next()
+   }
+   next({status:404,message:'Unauthorized})
 }
 ```
 
