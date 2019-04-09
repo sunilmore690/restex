@@ -9,7 +9,6 @@ Simple and minimalist API framework based on top of Expressjs with support mongo
 Requirements
 You need **Node.js ^7.10.1** installed and you'll need MongoDB installed and running.
 
-
 ##### Initialize restex using mongoose URL
 
 ```
@@ -17,7 +16,7 @@ const express = require("express"),
     RestEx = require("restex");
 
 let app = express()
-    
+
 
 //Restex connecting to mongodb using mongodb url
 let restex = new RestEx(app, {
@@ -31,19 +30,19 @@ let restex = new RestEx(app, {
     modelsPath: path.resolve(__dirname + "/models"),
     routesPath: path.resolve(__dirname + "/routes")
 });
-  ```
-  
- ##### Initialize restex using existing mongoose connection instance 
+```
 
-  ```
+##### Initialize restex using existing mongoose connection instance
+
+```
 const express = require('express'),
-      mongoose = require('mongoose'),
-      RestEx = require("restex");
-      
+    mongoose = require('mongoose'),
+    RestEx = require("restex");
+
 let app = express()
 
 const mongoose = require('mongoose');
- 
+
 // Basic usage
 mongoose.connect(connectionOptions);
 const mongooseConnection = mongoose.connection;
@@ -53,39 +52,50 @@ const mongooseConnection = mongoose.createConnection(connectionOptions);
 
 //Restex connecting to mongodb using mongodb url
 let restex = new RestEx(app, {
-    database: {
-        provider: "mongo",
-        conn: {
-            mongooseConnection:mongooseConnection
-        }
-    },
-    controllersPath: path.resolve(__dirname + "/controllers"),
-    modelsPath: path.resolve(__dirname + "/models"),
-    routesPath: path.resolve(__dirname + "/routes")
-    middlewaresPath: path.resolve(__dirname + "/middlewares")
+  database: {
+      provider: "mongo",
+      conn: {
+          mongooseConnection:mongooseConnection
+      }
+  },
+  controllersPath: path.resolve(__dirname + "/controllers"),
+  modelsPath: path.resolve(__dirname + "/models"),
+  routesPath: path.resolve(__dirname + "/routes")
+  middlewaresPath: path.resolve(__dirname + "/middlewares")
 });
-  ```
+```
 
-##### controllersPath 
+##### controllersPath
+
 path to controllers directory
+
 ```
 default : controllers
 @type {string}
 ```
-##### modelsPath 
+
+##### modelsPath
+
 path to models directory where you define mongoose schemas
+
 ```
 default : models
 @type {string}
 ```
-##### routesPath 
+
+##### routesPath
+
 path to routes directory where you define routes for app
+
 ```
 default : routes
 @type {string}
 ```
-##### middlewaresPath 
+
+##### middlewaresPath
+
 path to routes directory where you define routes for app
+
 ```
 default : middlewares
 @type {string}
@@ -94,7 +104,9 @@ default : middlewares
 ### Follow the following file structurre for models,routes & controllers
 
 ##### models
+
 //user.js
+
 ```
 module.exports = function(mongoose) {
   let modelName = 'users';
@@ -116,14 +128,13 @@ module.exports = function(mongoose) {
   });
   userSchema.statics = {
     collectionName:modelName // default file name >>user,
-    routeOption:{
-      middleware:['auth']//where auth is middleware file exist in middlewares Path dir
-    }
   }
   return userSchema
 };
 ```
+
 ##### routes
+
 //user.js
 
 ```
@@ -131,11 +142,14 @@ module.exports = function(router) {
   router.post("/authenticate", "user#authenticate");
 };
 ```
-###### Note: user#authenticate 
-user >> controller 
+
+###### Note: user#authenticate
+
+user >> controller
 authenticate >> handler defined in controller
 
 If you need to add **middleware** to route
+
 ```
 let middeware1 = function(req,res,next){
   next()
@@ -148,8 +162,11 @@ module.exports = function(router) {
 };
 
 ```
-##### controllers 
+
+##### controllers
+
 //users.js
+
 ```
 let model_name = 'users'// make sure user schema exist in models dir
 module.exports = function(restex){
@@ -161,7 +178,7 @@ module.exports = function(restex){
     }).catch(err=>{
       return next(err)
     })
-    
+
     // Using async/await
     try{
         let user = Dao.get({email: req.body.email,password: req.body.password})
@@ -175,9 +192,10 @@ module.exports = function(restex){
 }
 ```
 
+##### middlewares
 
-##### middlewares 
 //auth.js
+
 ```
 module.exports = function(req,res,next){
    const isAuthenticated = true;
@@ -189,12 +207,13 @@ module.exports = function(req,res,next){
 ```
 
 #### Dao object consist of following predefined CURD methos
-   1. ```Dao.get({email:email})).then(=>{}).catch(=>{})```
-   2. ``` Dao.getAll({company:<company>},{page:1,limit:10}) ```
-    3. ```Dao.destroy({email:email}).then(=>{}).catch(=>{})```
-    4. ```Dao.update({email:email},{name:'Scott  Tiger'}).then(=>{}).catch(=>{})```
-    5. ``` Dao.add({email:'scott@tiger.com',name:'Scott Tiger'}```
-  
+
+1.  `Dao.get({email:email})).then(=>{}).catch(=>{})`
+2.  `Dao.getAll({company:<company>},{page:1,limit:10})`
+    3. `Dao.destroy({email:email}).then(=>{}).catch(=>{})`
+    4. `Dao.update({email:email},{name:'Scott Tiger'}).then(=>{}).catch(=>{})`
+    5. `Dao.add({email:'scott@tiger.com',name:'Scott Tiger'}`
+
 In some case if you need access mongoose Model directly.
 
 ```
@@ -207,7 +226,7 @@ module.exports = function(restex){
       }).catch(err=>{
         return next(err)
       })
-   
+
    }
    return {
     authenticate
@@ -219,9 +238,9 @@ module.exports = function(restex){
 
 by default CRUD api will be created according to collectionName provided in mongoose Schema
 
- userSchema.statics = {
-    collectionName:'users' 
- }
+userSchema.statics = {
+collectionName:'users'
+}
 
 ```
  GET      /users
@@ -231,6 +250,7 @@ by default CRUD api will be created according to collectionName provided in mong
  POST     /users
 
 ```
+
 To add middleware option for CRUD api ,add routeOption while defining mongoose model
 
 ```
@@ -244,14 +264,13 @@ let middleware2 = function(req,res,next){
  userSchema.statics = {
     collectionName:'users',
     routeOption:{
-        middleware:[middleware1,middleware2]
-    } 
+        middleware:[middleware1,middleware2,'auth']
+    }
  }
 
 ```
 
 #### examples
-
 
 ```
 $ git clone https://github.com/sunilmore690/restex-mongo-demo
@@ -259,4 +278,3 @@ $ cd restex-mongo-demo
 $ npm install
 $ npm start
 ```
-
