@@ -22,7 +22,6 @@ You need **Node.js ^7.10.1** installed and you'll need MongoDB installed and run
 
 ##### Initialize restex using mongoose URL
 
-  
 
 ```
 
@@ -35,29 +34,16 @@ let app = express()
 //Restex connecting to mongodb using mongodb url
 
 let restex = new RestEx(app, {
-
-database: {
-
-provider: "mongo",
-
-conn: {
-
-uri: "mongodb://localhost:27017/mydb"
-
-}
-
-},
-
-controllersPath: path.resolve(__dirname + "/controllers"),//optional
-
-modelsPath: path.resolve(__dirname + "/models"), //optional
-
-routesPath: path.resolve(__dirname + "/routes"),//optinonal
-
-middlewaresPath:path.resolve(__dirname+"/middleware.js") //optional
-
+	database: {
+		provider: "mongo",
+		conn: {
+		uri: "mongodb://localhost:27017/mydb"
+	},	
+	controllersPath: path.resolve(__dirname + "/controllers"),//optional
+	modelsPath: path.resolve(__dirname + "/models"), //optional
+	routesPath: path.resolve(__dirname + "/routes"),//optinonal
+	middlewaresPath:path.resolve(__dirname+"/middleware.js") //optional
 });
-
 ```
 ##### Initialize restex using existing mongoose connection instance
 
