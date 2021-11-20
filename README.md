@@ -6,7 +6,7 @@
 
   
 
-Simple and minimalist API framework based on top of Expressjs with support mongoose & sequelizejs
+Simple and minimalist API wrapper based on top of Expressjs with support mongoose & sequelizejs
 
   
 
