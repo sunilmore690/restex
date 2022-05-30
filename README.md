@@ -402,12 +402,12 @@ userSchema.statics = {
  
 ```
 
-$ git clone https://github.com/sunilmore690/restex-mongo-demo
+ git clone https://github.com/sunilmore690/restex-mongo-demo
 
-$ cd restex-mongo-demo
+ cd restex-mongo-demo
 
-$ npm install
+ npm install
 
-$ npm start
+ npm start
 
 ```
