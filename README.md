@@ -6,7 +6,7 @@
 
   
 
-Simple and minimalist API framework based on top of Expressjs with support mongoose & sequelizejs
+Simple and minimalist API wrapper based on top of Expressjs with support mongoose & sequelizejs
 
   
 
@@ -20,7 +20,7 @@ You need **Node.js ^7.10.1** installed and you'll need MongoDB installed and run
 
   
 
-##### Initialize restex using mongoose URL
+##### Initialize restex using mongodb database(mongoose) L
 
 
 ```
@@ -76,8 +76,9 @@ const mongooseConnection = mongoose.createConnection(connectionOptions);
 let restex = new RestEx(app, {
 	database: {
 		provider: "mongo",
+		mongoose:require('mongoose')
 		conn: {
-			mongooseConnection:mongooseConnection
+			mongooseConnection:mongooseConnection,
 		}
     },
     controllersPath: path.resolve(__dirname + "/controllers"),
@@ -87,7 +88,36 @@ let restex = new RestEx(app, {
 });
 
 ```
+##### Initialize restex using sequelize orm database
 
+
+```
+
+const express = require("express"),
+   Sequelize = require('sequelize'),
+
+      RestEx = require("restex");
+
+let app = express()
+
+//connect to sqlite database, you also need to in
+const sequelize = new Sequelize('sqlite::memory:');
+
+
+//Restex connecting to mongodb using mongodb url
+
+let restex = new RestEx(app, {
+	database: {
+		provider: "sequelize",
+        Sequelize ,//mongodb,mysql
+        conn:sequelize
+	},	
+	controllersPath: path.resolve(__dirname + "/controllers"),//optional
+	modelsPath: path.resolve(__dirname + "/models"), //optional
+	routesPath: path.resolve(__dirname + "/routes"),//optinonal
+	middlewaresPath:path.resolve(__dirname+"/middleware.js") //optional
+});
+```
 ##### controllersPath
 
 path to controllers directory
@@ -100,7 +130,7 @@ default : controllers
 
 ```
 
-##### modelsPath
+##### modelsPath 
 
   
 
@@ -154,46 +184,51 @@ default : middleware.js
 
   
 
-##### models
+##### models ()
+
+##### 1 Mongodb(mongoose)
 //user.js
 
 ```
 
 module.exports = function(mongoose) {
-
 	let modelName = 'users';
-
 	const Schema = mongoose.Schema;
-
 	var userSchema = new Schema({
-
 		name: String,
-
 		email: { type: String, required: true, unique: true },
-
 		password: { type: String, required: true },
-
 		createdAt: { type: Date },
-
 		updatedAt: Date
-
 	});
 
 	userSchema.pre("save", function(next) {
 		if (this.isNew) {
 			this.createdAt = new Date();
 		} else {
-			this.updatedAt = new DataCue();
+			this.updatedAt = new Date();
 	})
     userSchema.statics = {
 		collectionName:modelName // default file name >>user,
 	}
 	return userSchema
-
 };
 ```
-
+##### 2 sequelize(Relational Database)
   
+  ```
+  module.exports = function(sequelize,Sequelize){
+    const User = sequelize.define("user", {
+        name: {
+          type: Sequelize.STRING
+        },
+        email: {
+          type: Sequelize.STRING
+        }
+      });
+    return User;
+}
+  ```
 #### routes
 
 
@@ -400,6 +435,7 @@ userSchema.statics = {
 #### examples
 
  
+##### 1 Mongodb (mongoose)
 ```
 
  git clone https://github.com/sunilmore690/restex-mongo-demo
@@ -409,5 +445,18 @@ userSchema.statics = {
  npm install
 
  npm start
+
+```
+
+##### 2 Sequelize (Relational Database)
+```
+
+$ git clone https://github.com/sunilmore690/restex-sequelize-demo
+
+$ cd restex-sequelize-demo
+
+$ npm install
+
+$ npm start
 
 ```
