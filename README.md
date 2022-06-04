@@ -435,11 +435,25 @@ userSchema.statics = {
 #### examples
 
  
+##### 1 Mongodb (mongoose)
 ```
 
 $ git clone https://github.com/sunilmore690/restex-mongo-demo
 
 $ cd restex-mongo-demo
+
+$ npm install
+
+$ npm start
+
+```
+
+##### 1 Sequelize (Relational Database)
+```
+
+$ git clone https://github.com/sunilmore690/restex-sequelize-demo
+
+$ cd restex-sequelize-demo
 
 $ npm install
 
