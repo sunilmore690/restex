@@ -511,12 +511,12 @@ npm start
 
 ```
 
-$ git clone https://github.com/sunilmore690/restex-sequelize-demo
+ git clone https://github.com/sunilmore690/restex-sequelize-demo
 
-$ cd restex-sequelize-demo
+ cd restex-sequelize-demo
 
-$ npm install
+ npm install
 
-$ npm start
+ npm start
 
 ```
