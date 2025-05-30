@@ -1,9 +1,16 @@
 {
   "name": "restex",
-  "version": "2.1.2",
-  "description": "Nodejs framework built on top of expressjs,mongoose,sequelizejs",
-  "main": "./lib/restex",
-  "scripts": {},
+  "version": "3.0.0",
+  "description": "Nodejs framework built on top of expressjs, mongoose, sequelizejs with ES6 support",
+  "type": "module",
+  "main": "./lib/restex.js",
+  "exports": {
+    ".": "./lib/restex.js"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/sunilmore690/restex.git"
@@ -14,17 +21,25 @@
     "mongodb",
     "mongoose",
     "express",
-    "sequelizejs"
+    "sequelizejs",
+    "es6",
+    "esm"
   ],
   "author": "Sunil More",
   "license": "ISC",
   "dependencies": {
-    "colors": "^1.3.0",
-    "mongoose-paginate": "^5.0.3",
-    "node-uglifier": "^0.5.41"
+    "colors": "^1.4.0",
+    "mongoose-paginate": "^5.0.3"
   },
   "peerDependencies": {
+    "express": "^4.17.1",
     "sequelize": "^6.20.1",
     "mongoose": "^5.13.14"
+  },
+  "devDependencies": {
+    "eslint": "^8.42.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
   }
 }
